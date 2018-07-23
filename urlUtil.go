@@ -34,15 +34,28 @@ func MatchPathAndGetPathParams(configPath string, locationPath string) (bool, ma
 }
 
 func GetQueryParams(queryString string) map[string]string {
+	queryString = strings.Trim(queryString, " ")
+	queryParams := map[string]string{}
+
+	if len(queryString) == 0 {
+		return queryParams
+	}
 	cleanQueryString := regexp.MustCompile("\\?")
 	queryString = cleanQueryString.ReplaceAllString(queryString, "")
 
 	queryParamsStrings := strings.Split(queryString, "&")
-	queryParams := map[string]string{}
 
 	for _, queryString := range queryParamsStrings {
 		kvp := strings.Split(queryString, "=")
-		k, v := kvp[0], kvp[1]
+		var k, v string
+
+		if len(kvp) == 0 {
+			continue
+		} else if len(kvp) == 1 {
+			k, v = kvp[0], kvp[0]
+		} else {
+			k, v = kvp[0], kvp[1]
+		}
 		queryParams[k] = v
 	}
 	return queryParams
