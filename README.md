@@ -12,7 +12,7 @@ go get -u github.com/Kotlang/gospars
 
 ## Usage
 
-### app.js
+### app.go
 ```
 package main
 
@@ -33,7 +33,10 @@ func ConfigRouter(component *js.Object) {
 		}
 	})
 	router.On("/landing", landing.LandingContoller{component})
+	// Both path params and query params are supported
+	// All path params and query params will be included in params called to handler of controller
 	router.On("/profile/:user", profile.ProfileContoller{component})
+	router.On("/search", search.SearchController{component})
 	router.Init("/landing")
 }
 
@@ -61,25 +64,50 @@ func main() {
 </html>
 ```
 
-### ProfileController
+### SearchController
 
 ```
-package profile
+package search
 
 import (
 	"github.com/gopherjs/gopherjs/js"
+	"github.com/Kotlang/gospars"
 )
 
-type ProfileContoller struct {
+type SearchController struct {
 	Component *js.Object
 }
 
-// template string will contain complete html of "build/profile/profile.html"
-func(p ProfileContoller) Handle(template string, params map[string]string) {
-	p.Component.Set("innerHTML", "Welcome " + params[":user"])
+type ExpertProfile struct {
+	Name      string
+	Expertise string
 }
 
-func (p ProfileContoller) GetTemplatePath() string  {
-	return "build/profile/profile.html"
+func(l SearchController) Handle(templateBody gospars.TemplateBody, params map[string]string) {
+	experts := []ExpertProfile {
+		{Name: "Sai NS", Expertise: "Machine Learning"},
+		{Name: "Vasu", Expertise: "Machine Learning"},
+		{Name: "Siddhanth", Expertise: "Machine Learning"} }
+
+
+	l.Component.Set("innerHTML", templateBody.Render(experts))
 }
+
+func (l SearchController) GetTemplatePath() string  {
+	return "build/search/search.html"
+}
+
+```
+
+### search.html (template)
+
+```
+<!-- templating as provided by goland template/html -->
+<h1>Results</h1>
+<ul>
+    {{range .}}
+        <li>{{.Name}}</li>
+        <li>{{.Expertise}}</li>
+    {{end}}
+</ul>
 ```

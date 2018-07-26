@@ -51,12 +51,12 @@ func (r *Router) fireEvent()  {
 	queryParams := GetQueryParams(queryParameterString)
 	params = MergeMaps(params, queryParams)
 
-	getTemplate(v.GetTemplatePath(), func(err error, templateContent string) {
+	getTemplate(v.GetTemplatePath(), func(err error, templateBody TemplateBody) {
 		if err != nil {
 			r.errCallback(err)
 			return
 		}
-		v.Handle(templateContent, params)
+		v.Handle(templateBody, params)
 	})
 }
 
