@@ -8,6 +8,13 @@
 ```
 go get -u github.com/gopherjs/gopherjs
 go get -u github.com/Kotlang/gospars/gospars
+go install github.com/Kotlang/gospars/cmd/gospars
+export PATH=$GOAPTH/bin:$PATH
+```
+
+## Auto-Generate components
+```
+gospars create component <component_name> <dest_folder>
 ```
 
 ## Usage
