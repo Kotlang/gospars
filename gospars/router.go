@@ -3,6 +3,7 @@ package gospars
 import (
 	"github.com/gopherjs/gopherjs/js"
 	"errors"
+	"github.com/Kotlang/gospars/gospars/util"
 )
 
 const NO_ROUTE_FOUND  = "NO_ROUTE_FOUND"
@@ -49,7 +50,7 @@ func (r *Router) fireEvent()  {
 	}
 	queryParameterString := r.dloc.Get("search").String()
 	queryParams := GetQueryParams(queryParameterString)
-	params = MergeMaps(params, queryParams)
+	params = util.MergeMaps(params, queryParams)
 
 	getTemplate(v.GetTemplatePath(), func(err error, templateBody TemplateBody) {
 		if err != nil {

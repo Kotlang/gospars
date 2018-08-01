@@ -1,4 +1,4 @@
-package gospars
+package util
 
 func MergeMaps(map1 map[string]string, map2 map[string]string) map[string]string {
 	for k, v := range map2 {

@@ -7,7 +7,7 @@
 
 ```
 go get -u github.com/gopherjs/gopherjs
-go get -u github.com/Kotlang/gospars
+go get -u github.com/Kotlang/gospars/gospars
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ package main
 
 import (
 	"github.com/gopherjs/gopherjs/js"
-	"github.com/Kotlang/gospars"
+	"github.com/Kotlang/gospars/gospars"
 	"landing"
 	"profile"
 )
@@ -71,7 +71,7 @@ package search
 
 import (
 	"github.com/gopherjs/gopherjs/js"
-	"github.com/Kotlang/gospars"
+	"github.com/Kotlang/gospars/gospars"
 )
 
 type SearchController struct {
