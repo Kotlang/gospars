@@ -1,7 +1,7 @@
 package gospars
 
 import (
-	"github.com/gopherjs/gopherjs/js"
+	"syscall/js"
 	"errors"
 	"github.com/Kotlang/gospars/gospars/util"
 )
@@ -15,12 +15,12 @@ type action struct {
 
 type Router struct {
 	// document.location reference
-	dloc *js.Object
+	dloc js.Value
 	actions []action
 	errCallback func(err error)
 }
 
-func (r *Router) onHashChangeEvent(changeEvent *js.Object)  {
+func (r *Router) onHashChangeEvent(changeEvent js.Value)  {
 	r.fireEvent()
 }
 
@@ -62,7 +62,7 @@ func (r *Router) fireEvent()  {
 }
 
 func NewRouter(errCallback func(error)) *Router {
-	return &Router{ dloc: js.Global.Get("document").Get("location"),
+	return &Router{ dloc: js.Global().Get("document").Get("location"),
 		actions: []action{},
 		errCallback: errCallback }
 }
@@ -72,7 +72,7 @@ func (r *Router) On(path string, v ViewController) {
 }
 
 func (r *Router) Init(landingHash string) {
-	js.Global.Get("window").Set("onhashchange", r.onHashChangeEvent)
+	js.Global().Get("window").Set("onhashchange", r.onHashChangeEvent)
 	currentHash := r.dloc.Get("hash").String()
 
 	if currentHash == "" || currentHash =="#" {
