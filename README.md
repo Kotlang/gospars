@@ -22,6 +22,9 @@ gospars create component <component_name> <dest_folder>
 * WASM size larger than js. Further CDNs doesn't give efficient compression for wasm
 * WASM performance was poorer than js as it takes more time loading the entire wasm into memory.
 
+## Sample Repo
+https://github.com/Kotlang/counselWeb
+
 ## Usage
 
 ### app.go
