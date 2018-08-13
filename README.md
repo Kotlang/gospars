@@ -17,6 +17,11 @@ export PATH=$GOAPTH/bin:$PATH
 gospars create component <component_name> <dest_folder>
 ```
 
+## Experiments with WASM (go1.11)
+* Didn't find wasm efficient for Single Page Application Routing
+* WASM size larger than js. Further CDNs doesn't give efficient compression for wasm
+* WASM performance was poorer than js as it takes more time loading the entire wasm into memory.
+
 ## Usage
 
 ### app.go
